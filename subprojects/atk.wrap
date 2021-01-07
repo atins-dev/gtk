@@ -1,5 +1,5 @@
 [wrap-git]
 directory=atk
-url=https://gitlab.gnome.org/GNOME/atk.git
-push-url=git@gitlab.gnome.org:GNOME/atk.git
-revision=master
+url=https://github.com/atins-dev/atk.git
+push-url=git@github.com:atins-dev/atk.git
+revision=disable_introspection
