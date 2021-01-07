@@ -902,9 +902,9 @@ pkgconf.set('GDK_PRIVATE_PACKAGES',
                      ['fribidi', fribidi_req]))
 
 gtk_packages = ' '.join([
-    atk_dep.name(), atk_req,
+    'atk', atk_req,
     cairo_packages,
-    pixbuf_dep.name(), gdk_pixbuf_req,
+    'gdk-pixbuf-2.0', gdk_pixbuf_req,
     'gio-2.0', glib_req,
 ])
 pkgconf.set('GTK_PACKAGES', gtk_packages)
