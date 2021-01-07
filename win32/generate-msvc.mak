@@ -139,13 +139,13 @@ all:	\
 	@echo     ^<file^>theme/Adwaita/gtk-dark.css^</file^>>> $@
 	@echo     ^<file^>theme/Adwaita/gtk-contained.css^</file^>>> $@
 	@echo     ^<file^>theme/Adwaita/gtk-contained-dark.css^</file^>>> $@
-	@for %%f in (..\gtk\theme\Adwaita\assets\*.png) do @echo     ^<file preprocess='to-pixdata'^>theme/Adwaita/assets/%%~nxf^</file^>>> $@
+	@for %%f in (..\gtk\theme\Adwaita\assets\*.png) do @echo     ^<file^>theme/Adwaita/assets/%%~nxf^</file^>>> $@
 	@for %%f in (..\gtk\theme\Adwaita\assets\*.svg) do @echo     ^<file^>theme/Adwaita/assets/%%~nxf^</file^>>> $@
 	@echo     ^<file^>theme/HighContrast/gtk.css^</file^>>> $@
 	@echo     ^<file alias='theme/HighContrastInverse/gtk.css'^>theme/HighContrast/gtk-inverse.css^</file^>>> $@
 	@echo     ^<file^>theme/HighContrast/gtk-contained.css^</file^>>> $@
 	@echo     ^<file^>theme/HighContrast/gtk-contained-inverse.css^</file^>>> $@
-	@for %%f in (..\gtk\theme\HighContrast\assets\*.png) do @echo     ^<file preprocess='to-pixdata'^>theme/HighContrast/assets/%%~nxf^</file^>>> $@
+	@for %%f in (..\gtk\theme\HighContrast\assets\*.png) do @echo     ^<file^>theme/HighContrast/assets/%%~nxf^</file^>>> $@
 	@for %%f in (..\gtk\theme\HighContrast\assets\*.svg) do @echo     ^<file^>theme/HighContrast/assets/%%~nxf^</file^>>> $@
 	@echo     ^<file^>theme/win32/gtk-win32-base.css^</file^>>> $@
 	@echo     ^<file^>theme/win32/gtk.css^</file^>>> $@
