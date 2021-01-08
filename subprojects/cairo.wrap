@@ -1,5 +1,5 @@
 [wrap-git]
 directory=cairo
-url=https://github.com/centricular/cairo.git
-push-url=git@github.com:centricular/cairo.git
+url=https://github.com/atins-dev/cairo.git
+push-url=git@github.com:atins-dev/cairo.git
 revision=meson
