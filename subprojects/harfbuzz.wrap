@@ -3,3 +3,4 @@ directory=harfbuzz
 url=https://github.com/harfbuzz/harfbuzz.git
 push-url=git@github.com:harfbuzz/harfbuzz.git
 revision=main
+source_hash=f1f2be776bcd994fa9262622e1a7098a066e5cf7
