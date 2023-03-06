@@ -2951,12 +2951,13 @@ calendar_main_button_press (GtkCalendar    *calendar,
       if (!gtk_widget_has_focus (widget))
         gtk_widget_grab_focus (widget);
 
-      if (event->button == GDK_BUTTON_PRIMARY)
-        {
-          priv->in_drag = 1;
-          priv->drag_start_x = x;
-          priv->drag_start_y = y;
-        }
+      // NOTE: disable dnd function of calendar
+      // if (event->button == GDK_BUTTON_PRIMARY)
+      //   {
+      //     priv->in_drag = 1;
+      //     priv->drag_start_x = x;
+      //     priv->drag_start_y = y;
+      //   }
 
       calendar_select_and_focus_day (calendar, day);
     }
