@@ -5311,6 +5311,11 @@ gtk_tree_view_bin_draw (GtkWidget      *widget,
     if (flags & GTK_CELL_RENDERER_SORTED)
       gtk_style_context_add_class (context, "sorted");
 
+    if (list == first_column)
+      gtk_style_context_add_class (context, "first_column");
+    else if (list == last_column)
+      gtk_style_context_add_class (context, "last_column");
+
 	  if (node == tree_view->priv->cursor_node && has_can_focus_cell
               && ((column == tree_view->priv->focus_column
                    && tree_view->priv->draw_keyfocus &&
