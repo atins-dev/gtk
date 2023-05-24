@@ -2616,7 +2616,7 @@ calendar_paint_day (GtkCalendar *calendar,
   pango_layout_get_pixel_extents (layout, NULL, &logical_rect);
 
   x_loc = day_rect.x + (day_rect.width - logical_rect.width) / 2;
-  y_loc = day_rect.y;
+  y_loc = day_rect.y + (day_rect.height - logical_rect.height) / 2;;
 
   gtk_render_layout (context, cr, x_loc, y_loc, layout);
 
