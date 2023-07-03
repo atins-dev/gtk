@@ -5303,7 +5303,10 @@ gtk_tree_view_bin_draw (GtkWidget      *widget,
 
           gtk_style_context_add_class (context, GTK_STYLE_CLASS_CELL);
 
-    if (_gtk_rbtree_node_get_index (tree, node) % 2 == 0)
+    if (gtk_tree_view_draw_expanders (tree_view)
+		  && (node->flags & GTK_RBNODE_IS_PARENT) == GTK_RBNODE_IS_PARENT)
+      gtk_style_context_add_class (context, "parent");
+    else if (_gtk_rbtree_node_get_index (tree, node) % 2 == 0)
       gtk_style_context_add_class (context, "odd");
     else
       gtk_style_context_add_class (context, "even");
