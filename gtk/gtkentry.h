@@ -160,6 +160,9 @@ struct _GtkEntryClass
 			       gint           *height);
   void (* insert_emoji)       (GtkEntry             *entry);
 
+  /* custom added signals */
+  void (* update_capslock)    (GtkEntry             *entry); // powerory 20240304
+
   /*< private >*/
 
   /* Padding for future expansion */
@@ -168,7 +171,7 @@ struct _GtkEntryClass
   void (*_gtk_reserved3)      (void);
   void (*_gtk_reserved4)      (void);
   void (*_gtk_reserved5)      (void);
-  void (*_gtk_reserved6)      (void);
+  // void (*_gtk_reserved6)      (void);
 };
 
 GDK_AVAILABLE_IN_ALL

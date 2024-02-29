@@ -328,6 +328,7 @@ enum {
   ICON_RELEASE,
   PREEDIT_CHANGED,
   INSERT_EMOJI,
+  UPDATE_CAPSLOCK, // powerory 20240304
   LAST_SIGNAL
 };
 
@@ -563,6 +564,7 @@ static void keymap_direction_changed     (GdkKeymap       *keymap,
 static void keymap_state_changed         (GdkKeymap       *keymap,
 					  GtkEntry        *entry);
 static void remove_capslock_feedback     (GtkEntry        *entry);
+static void gtk_entry_update_capslock    (GtkEntry        *entry); // powerory 20240304
 
 /* IM Context Callbacks
  */
@@ -821,6 +823,7 @@ gtk_entry_class_init (GtkEntryClass *class)
   class->activate = gtk_entry_real_activate;
   class->get_text_area_size = gtk_entry_get_text_area_size;
   class->get_frame_size = gtk_entry_get_frame_size;
+  class->update_capslock = gtk_entry_update_capslock;
   
   quark_inner_border = g_quark_from_static_string ("gtk-entry-inner-border");
   quark_password_hint = g_quark_from_static_string ("gtk-entry-password-hint");
@@ -1930,6 +1933,24 @@ gtk_entry_class_init (GtkEntryClass *class)
 		  G_OBJECT_CLASS_TYPE (gobject_class),
 		  G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
 		  G_STRUCT_OFFSET (GtkEntryClass, insert_emoji),
+		  NULL, NULL,
+		  NULL,
+		  G_TYPE_NONE, 0);
+
+  /**
+   * GtkEntry::update-capslock:
+   * @entry: the object which received the signal
+   *
+   * The ::update-capslock signal is a
+   * trigger signal to update capslock status through capslock feedback
+   *
+   * by powerory 20240304
+   */
+  signals[UPDATE_CAPSLOCK] =
+    g_signal_new (I_("update-capslock"),
+		  G_OBJECT_CLASS_TYPE (gobject_class),
+		  G_SIGNAL_RUN_LAST | G_SIGNAL_ACTION,
+		  G_STRUCT_OFFSET (GtkEntryClass, update_capslock),
 		  NULL, NULL,
 		  NULL,
 		  G_TYPE_NONE, 0);
@@ -10889,6 +10910,19 @@ keymap_state_changed (GdkKeymap *keymap,
     show_capslock_feedback (entry, text);
   else
     remove_capslock_feedback (entry);
+}
+
+// powerory 20240304
+static void
+gtk_entry_update_capslock (GtkEntry  *entry)
+{
+  GdkKeymap *keymap = NULL;
+
+  if (entry->priv->caps_lock_warning && entry->priv->editable)
+    {
+      keymap = gdk_keymap_get_for_display (gtk_widget_get_display (GTK_WIDGET (entry)));
+      keymap_state_changed (keymap, entry);
+    }
 }
 
 /**
