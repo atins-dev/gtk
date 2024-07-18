@@ -519,6 +519,7 @@ struct _GtkTreeViewPrivate
   guint draw_keyfocus : 1;
   guint model_setup : 1;
   guint in_column_drag : 1;
+  guint n_depth;
 };
 
 
@@ -5304,7 +5305,7 @@ gtk_tree_view_bin_draw (GtkWidget      *widget,
           gtk_style_context_add_class (context, GTK_STYLE_CLASS_CELL);
 
     if (gtk_tree_view_draw_expanders (tree_view)
-		  && (node->flags & GTK_RBNODE_IS_PARENT) == GTK_RBNODE_IS_PARENT)
+      && depth != tree_view->priv->n_depth )
       gtk_style_context_add_class (context, "parent");
     else if (_gtk_rbtree_node_get_index (tree, node) % 2 == 0)
       gtk_style_context_add_class (context, "odd");
@@ -5345,8 +5346,8 @@ gtk_tree_view_bin_draw (GtkWidget      *widget,
 	  if (gtk_tree_view_is_expander_column (tree_view, column))
 	    {
 	      if (!rtl)
-		cell_area.x += (depth - 1) * tree_view->priv->level_indentation;
-	      cell_area.width -= (depth - 1) * tree_view->priv->level_indentation;
+		cell_area.x += depth * tree_view->priv->level_indentation;
+	      cell_area.width -= depth * tree_view->priv->level_indentation;
 
               if (gtk_tree_view_draw_expanders (tree_view))
 	        {
@@ -9122,6 +9123,11 @@ gtk_tree_view_row_inserted (GtkTreeModel *model,
   depth = gtk_tree_path_get_depth (path);
   indices = gtk_tree_path_get_indices (path);
 
+  if (depth > tree_view->priv->n_depth)
+    {
+      tree_view->priv->n_depth = depth;
+    }
+
   /* First, find the parent tree */
   while (i < depth - 1)
     {
@@ -9589,9 +9595,9 @@ gtk_tree_view_get_arrow_xrange (GtkTreeView *tree_view,
   if (indent_expanders)
     {
       if (rtl)
-	x_offset -= expander_size * _gtk_rbtree_get_depth (tree);
+	x_offset -= expander_size / 4 * _gtk_rbtree_get_depth (tree);
       else
-	x_offset += expander_size * _gtk_rbtree_get_depth (tree);
+	x_offset += expander_size / 4 * _gtk_rbtree_get_depth (tree);
     }
 
   *x1 = x_offset;
