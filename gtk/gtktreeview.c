@@ -5304,9 +5304,19 @@ gtk_tree_view_bin_draw (GtkWidget      *widget,
 
           gtk_style_context_add_class (context, GTK_STYLE_CLASS_CELL);
 
-    if (gtk_tree_view_draw_expanders (tree_view)
-      && depth != tree_view->priv->n_depth )
-      gtk_style_context_add_class (context, "parent");
+    if (gtk_tree_view_draw_expanders (tree_view))
+      {
+        if (depth == tree_view->priv->n_depth)
+          {
+            gtk_style_context_add_class (context, "odd");
+          }
+        else if (depth < tree_view->priv->n_depth - 1)
+          {
+            gtk_style_context_add_class (context, "parent");
+          }
+        else
+          gtk_style_context_add_class (context, "even");
+      }
     else if (_gtk_rbtree_node_get_index (tree, node) % 2 == 0)
       gtk_style_context_add_class (context, "odd");
     else
